@@ -42,13 +42,15 @@ or overwrite the options from the command line
 ## Examples
 
 config.json:
+
     {
       "log":{
         "name":"It's useful to log",
         "level":"info"
       }
     }
-config.dev.json
+config.dev.json:
+
     {
       "log":{
         "level":"debug"
@@ -56,9 +58,11 @@ config.dev.json
       "correct":true
     }
 
+
     var config = require('easy-config');
 
 Will create the following object:
+
     {
       "log":{
         "name":"It's useful to log",
@@ -66,6 +70,8 @@ Will create the following object:
       },
       "correct":true
     }
+
+
 ## License
 
 The MIT License (MIT)

@@ -51,7 +51,7 @@ You can modify the loading options by using the method loadConfig(options) that 
 
 ### Command line
 
-You can specify them from the loading options from the command line in the following format -{name}={value}.
+You can also specify the loading options from the command line in the following format -{name}={value}.
 
 Take note that the format differs between loading configuration options and configuration extending by one '-' sign.
 
@@ -93,7 +93,7 @@ Will create the following output:
       "correct":true
     }
 
-## Extend
+### Extend
 
 The config object also comes with the convenience method of extend to allow overwriting 
 or extending the configuration object.

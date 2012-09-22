@@ -10,34 +10,54 @@ easy-config loads configuration from JSON files and the command line returning a
 
 ## Default usage
 
-### File structure
+Simply require the module and thats it
 
-    /config/config.json
-    /config/config.dev.json
-    /config/config.pro.json
-    /index.js
-
-Now simply require the module and thats it
     var config = require('easy-config');
+
+It will try to read files from config subfolder and failing that the root folder.
+Starting with an empty object extend the configuration object by adding or overwriting the values obtained in the following order
+
+1. config.json
+2. config.dev.json (this is because default environment is development)
+3. command line input
+
+### Command line
+
+Input is expected in the --{name}={value} format.
+
+You can also set nested properties by using dots to specify the nesting like so:
+
+    $ node test.js --log.level.is==true  
 
 ## Options
 
 The following options are available:
-root: *The root directory will default to process.cwd()
-folder: *The configuration folder will default to 'config'
-production: *The production configuration file name will default to 'config.pro.json'
-development: *The development configuration file name will default to 'config.dev.json'
-main: *The main configuration file name - this will always be loaded will default to 'config.json'
-commandLine: *Whether to load configurations from the command line will default to true
-env: *Environment for which to load configuration will default to 'development'
 
-To use easy-config with different settings, including it with an options object
++ root: *The root directory will default to process.cwd()
++ folder: *The configuration folder will default to 'config'
++ production: *The production configuration file name will default to 'config.pro.json'
++ development: *The development configuration file name will default to 'config.dev.json'
++ main: *The main configuration file name - this will always be loaded will default to 'config.json'
++ commandLine: *Whether to load configurations from the command line will default to true
++ env: *Environment for which to load configuration will default to 'development'
 
-    var config = require('easy-config')(options);
+There are two ways of specifying the options:
 
-or overwrite the options from the command line
+### loadConfig
 
-    $ node index.js -folder=configuration -main=conf.json
+You can modify the loading options by using the method loadConfig(options) that is on the configuration object.
+
+    var config = require('easy-config').loadConfig(options);
+
+### Command line
+
+You can specify them from the loading options from the command line in the following format -{name}={value}.
+
+Take note that the format differs between loading configuration options and configuration extending by one '-' sign.
+
+Options specified on command line will take precedent over options specified in code.
+
+    $ node test.js -env=production
 
 ## Examples
 
@@ -58,10 +78,12 @@ config.dev.json:
       "correct":true
     }
 
+index.js
 
     var config = require('easy-config');
+    console.log(config);
 
-Will create the following object:
+Will create the following output:
 
     {
       "log":{
@@ -71,6 +93,22 @@ Will create the following object:
       "correct":true
     }
 
+## Extend
+
+The config object also comes with the convenience method of extend to allow overwriting 
+or extending the configuration object.
+
+Usage:
+
+    var config = require('easy-config');
+    config.extend({newProp:true});
+
+Will result in:
+
+    {
+      ...
+      newProp:true
+    }
 
 ## License
 

@@ -1,11 +1,11 @@
 {
-  "author": "Karl Düüna <karl.dyyna@gmail.com>",
+  "author": "Karl Düüna <dead.already@itdragons.com>",
   "name": "easy-config",
   "description": "Configuration loader for node using object extending and input from files and command line",
   "version": "0.0.1",
   "repository": {
     "type": "git",
-    "url": "git@github.com:Karl-Dyyna/node-easy-config"
+    "url": "git@github.com:DeadAlready/node-easy-config"
   },
   "main": "lib/config.js",
   "dependencies": {},

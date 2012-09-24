@@ -41,6 +41,7 @@ The following options are available:
 + commandLine: *Whether to load configurations from the command line will default to true
 + env: *Environment for which to load configuration will default to 'development'
 + breakOnMain: *Whether to throw an error if failing to load main config file defaults to true
++ preConfig: *Object to start extending, defaults to {}
 
 There are two ways of specifying the options:
 

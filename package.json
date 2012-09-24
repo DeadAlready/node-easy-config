@@ -2,7 +2,7 @@
   "author": "Karl Düüna <dead.already@itdragons.com>",
   "name": "easy-config",
   "description": "Configuration loader for node using object extending and input from files and command line",
-  "version": "0.0.2",
+  "version": "0.0.3",
   "repository": {
     "type": "git",
     "url": "git@github.com:DeadAlready/node-easy-config"

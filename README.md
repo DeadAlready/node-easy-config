@@ -42,6 +42,7 @@ The following options are available:
 + env: *Environment for which to load configuration will default to 'development'
 + breakOnMain: *Whether to throw an error if failing to load main config file defaults to true
 + preConfig: *Object to start extending, defaults to {}
++ ns: *Array or object containing namespaces to load, defaults to false
 
 There are two ways of specifying the options:
 
@@ -88,11 +89,39 @@ index.js
 Will create the following output:
 
     {
-      "log":{
-        "name":"It's useful to log",
-        "level":"debug"
+      log:{
+        name:"It's useful to log",
+        level:"debug"
       },
-      "correct":true
+      correct:true
+    }
+
+### Namespaces
+
+Namespaces option allows to load multiple configuration files into their own namespace
+
+Having config.runner.json
+    {
+      "name":"runner"
+    }
+
+    var config = require('easy-config').loadConfig({ns:['runner']});
+    console.log(config);
+
+or
+
+    var config = require('easy-config').loadConfig({ns:{'runner':'config.runner.json'});
+    console.log(config);
+
+Will create the following
+
+    {
+      ...
+      ns:{
+        runner:{
+          name:"runner"
+        }
+      }
     }
 
 ### Extend

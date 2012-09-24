@@ -2,6 +2,12 @@
   "author": "Karl Düüna <dead.already@itdragons.com>",
   "name": "easy-config",
   "description": "Configuration loader for node using object extending and input from files and command line",
+  "keywords": [
+    "configuration",
+    "config",
+    "command line",
+    "loader"
+  ],
   "version": "0.0.3",
   "repository": {
     "type": "git",

@@ -40,6 +40,7 @@ The following options are available:
 + main: *The main configuration file name - this will always be loaded will default to 'config.json'
 + commandLine: *Whether to load configurations from the command line will default to true
 + env: *Environment for which to load configuration will default to 'development'
++ breakOnMain: *Whether to throw an error if failing to load main config file defaults to true
 
 There are two ways of specifying the options:
 

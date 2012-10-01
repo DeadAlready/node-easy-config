@@ -141,6 +141,22 @@ Will result in:
       newProp:true
     }
 
+You can also extend arbitrary objects by calling extend with 2 objects. 
+The second object will overwrite the first object.
+
+Usage:
+
+    var config = require('easy-config');
+    config.extend({newProp:true,oldProp:'Old'},{newProp:false, newestProp:'Newest'});
+
+Will result in:
+
+    {
+      newProp:false,
+      oldProp:'Old',
+      newestProp:'Newest'
+    }
+
 ## License
 
 The MIT License (MIT)

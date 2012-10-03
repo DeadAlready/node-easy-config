@@ -2,12 +2,19 @@ var assert = require('assert');
 
 // Simple loading
 var config = require('../lib/config');
+console.log(config);
+process.exit();
 var expected = {
   log:{
     name:'It\'s useful to log',
     level: 'debug'
   },
-  correct:true
+  correct:true,
+  ns:{
+    runner:{
+      name: 'Karl'
+    }
+  }
 };
 assert.deepEqual(config, expected, 'Simple loading failed');
 
@@ -18,7 +25,12 @@ var expected = {
     name:'It\'s useful to log',
     level: 'debug'
   },
-  correct:false
+  correct:false,
+  ns:{
+    runner:{
+      name: 'Karl'
+    }
+  }
 };
 assert.deepEqual(config, expected, 'Extending failed');
 
@@ -28,6 +40,11 @@ var expected = {
   log:{
     name:'It\'s useful to log',
     level: 'info'
+  },
+  ns:{
+    runner:{
+      name: 'Karl'
+    }
   }
 };
 assert.deepEqual(config, expected, 'Options failed');
@@ -43,34 +60,16 @@ var expected = {
 };
 assert.deepEqual(config, expected, 'Options failed');
 
-// Options namespaces
-var config = require('../lib/config').loadConfig({ns:['runner']});
-var expected = {
-  log:{
-    name:'It\'s useful to log',
-    level: 'debug'
-  },
-  correct:true,
-  ns:{
-    runner:{
-      name:'Karl'
-    }
-  }
-};
-assert.deepEqual(config, expected, 'Namespaces failed');
-
 // Options namespaces 2
-var config = require('../lib/config').loadConfig({ns:{'hello':'config.runner.json'}});
+var config = require('../lib/config').loadConfig({ns:false});
 var expected = {
   log:{
     name:'It\'s useful to log',
     level: 'debug'
   },
   correct:true,
-  ns:{
-    hello:{
-      name:'Karl'
-    }
+  runner:{
+    name:'Karl'
   }
 };
 assert.deepEqual(config, expected, 'Namespaces 2 failed');

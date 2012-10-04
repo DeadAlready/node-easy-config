@@ -1,5 +1,5 @@
 {
-  "author": "Karl Düüna <karl.düüna@gmail.com>",
+  "author": "Karl Düüna <karl.dyyna@gmail.com>",
   "name": "easy-config",
   "description": "Configuration loader for node using object extending and input from files and command line",
   "keywords": [

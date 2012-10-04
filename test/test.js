@@ -9,6 +9,14 @@ var spec = require('vows/lib/vows/reporters/spec');
 var d = require('./data');
 var utils = require('./utils');
 
+try {
+  process.chdir(__dirname);
+}
+catch (err) {
+  console.log('Changing directory failed, test must be run with current working directory being ..easy-config/test');
+  console.log('exiting');
+  process.exit();
+}
 
 vows.describe('Easy-config').addBatch({
   'Simple include':{

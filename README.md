@@ -14,12 +14,14 @@ Simply require the module and thats it
 
     var config = require('easy-config');
 
-It will try to read files from config subfolder and failing that the root folder.
+It will try to read JSON files from config subfolder.
 Starting with an empty object extend the configuration object by adding or overwriting the values obtained in the following order
 
 1. config.json
 2. config.dev.json (this is because default environment is development)
 3. command line input
+4. all other files are added under ns key in the following format
+  -> config.keys.json will be under ns.keys
 
 ### Command line
 
@@ -33,16 +35,13 @@ You can also set nested properties by using dots to specify the nesting like so:
 
 The following options are available:
 
-+ root: *The root directory will default to process.cwd()
-+ folder: *The configuration folder will default to 'config'
-+ production: *The production configuration file name will default to 'config.pro.json'
-+ development: *The development configuration file name will default to 'config.dev.json'
-+ main: *The main configuration file name - this will always be loaded will default to 'config.json'
-+ commandLine: *Whether to load configurations from the command line will default to true
-+ env: *Environment for which to load configuration will default to 'development'
-+ breakOnMain: *Whether to throw an error if failing to load main config file defaults to true
-+ preConfig: *Object to start extending, defaults to {}
-+ ns: *Array or object containing namespaces to load, defaults to false
++ folder: *The configuration folder will default to process.cwd() + '/config'
++ cmd: *Whether to load configurations from the command line will default to true
++ envs: *Array of environment names. These files will not be loaded by default. Will default to ['dev','pro']
++ env: *Environment for which to load configuration will default to 'dev' (this will try to load config.dev.json)
++ type: *String -> file extension to load, defaults to JSON. Files are included with require, so js and json files are supported by default.
++ pre: *Object to start extending, defaults to {}
++ ns: *Boolean whether to append files under ns property
 
 There are two ways of specifying the options:
 
@@ -60,7 +59,7 @@ Take note that the format differs between loading configuration options and conf
 
 Options specified on command line will take precedent over options specified in code.
 
-    $ node test.js -env=production
+    $ node test.js -env=pro
 
 ## Examples
 
@@ -104,14 +103,6 @@ Having config.runner.json
     {
       "name":"runner"
     }
-
-    var config = require('easy-config').loadConfig({ns:['runner']});
-    console.log(config);
-
-or
-
-    var config = require('easy-config').loadConfig({ns:{'runner':'config.runner.json'});
-    console.log(config);
 
 Will create the following
 

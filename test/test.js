@@ -1,75 +1,53 @@
+/* 
+ * Copyright 2012 Karl Düüna <karl.dyyna@gmail.com> All rights reserved.
+ */
+'use strict';
+
+var vows = require('vows');
 var assert = require('assert');
+var spec = require('vows/lib/vows/reporters/spec');
+var d = require('./data');
+var utils = require('./utils');
 
-// Simple loading
-var config = require('../lib/config');
-console.log(config);
-process.exit();
-var expected = {
-  log:{
-    name:'It\'s useful to log',
-    level: 'debug'
-  },
-  correct:true,
-  ns:{
-    runner:{
-      name: 'Karl'
+
+vows.describe('Easy-config').addBatch({
+  'Simple include':{
+    topic:function(){
+      this.callback(null, require('../lib/config'));
+    },
+    'is correct':function(config){
+      assert.strictEqual(true, utils.deepDiff(config, d.simple));
+    },
+    'Extend':function(config){
+      config.extend({correct:false});
+      assert.strictEqual(true, utils.deepDiff(config, d.simpleE));
     }
   }
-};
-assert.deepEqual(config, expected, 'Simple loading failed');
-
-// Extending
-config.extend({correct:false});
-var expected = {
-  log:{
-    name:'It\'s useful to log',
-    level: 'debug'
-  },
-  correct:false,
-  ns:{
-    runner:{
-      name: 'Karl'
+}).addBatch({
+  'With env false':{
+    topic:function(){
+      this.callback(null, require('../lib/config').loadConfig({env:false}));
+    },
+    'is correct':function(config){
+      assert.strictEqual(true, utils.deepDiff(config, d.noEnv));
     }
   }
-};
-assert.deepEqual(config, expected, 'Extending failed');
-
-// Options env
-var config = require('../lib/config').loadConfig({env:false});
-var expected = {
-  log:{
-    name:'It\'s useful to log',
-    level: 'info'
-  },
-  ns:{
-    runner:{
-      name: 'Karl'
+}).addBatch({
+  'With other folder':{
+    topic:function(){
+      this.callback(null, require('../lib/config').loadConfig({folder:'other'}));
+    },
+    'is correct':function(config){
+      assert.strictEqual(true, utils.deepDiff(config, d.other));
     }
   }
-};
-assert.deepEqual(config, expected, 'Options failed');
-
-// Options folder
-var config = require('../lib/config').loadConfig({folder:'other'});
-var expected = {
-  log:{
-    name:'It\'s useful to log',
-    level: 'debug'
-  },
-  correct:'usually'
-};
-assert.deepEqual(config, expected, 'Options failed');
-
-// Options namespaces 2
-var config = require('../lib/config').loadConfig({ns:false});
-var expected = {
-  log:{
-    name:'It\'s useful to log',
-    level: 'debug'
-  },
-  correct:true,
-  runner:{
-    name:'Karl'
+}).addBatch({
+  'With no NS':{
+    topic:function(){
+      this.callback(null, require('../lib/config').loadConfig({ns:false}));
+    },
+    'is correct':function(config){
+      assert.strictEqual(true, utils.deepDiff(config, d.noNS));
+    }
   }
-};
-assert.deepEqual(config, expected, 'Namespaces 2 failed');
+}).run({reporter:spec});

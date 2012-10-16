@@ -122,8 +122,7 @@ or extending the configuration object.
 
 Usage:
 
-    var config = require('easy-config');
-    config.extend({newProp:true});
+    var config = require('easy-config').extend({newProp:true});
 
 Will result in:
 
@@ -138,7 +137,7 @@ The second object will overwrite the first object.
 Usage:
 
     var config = require('easy-config');
-    config.extend({newProp:true,oldProp:'Old'},{newProp:false, newestProp:'Newest'});
+    config = config.extend({newProp:true,oldProp:'Old'},{newProp:false, newestProp:'Newest'});
 
 Will result in:
 
@@ -146,6 +145,39 @@ Will result in:
       newProp:false,
       oldProp:'Old',
       newestProp:'Newest'
+    }
+
+### Modify/unmodify
+
+You can modify the config object so that the modification persist over 
+the next requrie calls.
+
+Usage:
+
+    var config = require('easy-config');
+    config.modify({newProp:true});
+    console.log(require('easy-config'));
+
+Will result in:
+
+    {
+      ...
+      newProp:true
+    }
+
+You can undo the modifications by calling unmodify
+
+Usage:
+
+    var config = require('easy-config');
+    config.modify({newProp:true});
+    config.unmodify();
+    console.log(require('easy-config'));
+
+Will result in:
+
+    {
+      ...
     }
 
 ## License

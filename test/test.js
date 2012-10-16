@@ -27,7 +27,7 @@ vows.describe('Easy-config').addBatch({
       assert.strictEqual(true, utils.deepDiff(config, d.simple));
     },
     'Extend':function(config){
-      config.extend({correct:false});
+      config = config.extend({correct:false});
       assert.strictEqual(true, utils.deepDiff(config, d.simpleE));
     }
   }
@@ -56,6 +56,21 @@ vows.describe('Easy-config').addBatch({
     },
     'is correct':function(config){
       assert.strictEqual(true, utils.deepDiff(config, d.noNS));
+    }
+  }
+}).addBatch({
+  'Modifiers':{
+    topic:function(){
+      this.callback(null, require('../lib/config').modify({'test':true}));
+    },
+    'is correct':function(config){
+      assert.strictEqual(true, utils.deepDiff(config, d.mod));
+    },
+    'is buffered':function(){
+      assert.strictEqual(true, utils.deepDiff(require('../lib/config'), d.mod));
+    },
+    'can undo':function(){
+      assert.strictEqual(true, utils.deepDiff(require('../lib/config').unmodify(), d.simple));
     }
   }
 }).run({reporter:spec});

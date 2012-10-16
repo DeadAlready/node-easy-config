@@ -58,6 +58,9 @@ module.exports.simple.ns = {
   runner:clone(runner)
 }
 
+module.exports.mod = clone(module.exports.simple);
+module.exports.mod.test = true;
+
 module.exports.simpleE = clone(module.exports.simple);
 module.exports.simpleE.correct = false;
 

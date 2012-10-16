@@ -69,6 +69,9 @@ vows.describe('Easy-config').addBatch({
     'is buffered':function(){
       assert.strictEqual(true, utils.deepDiff(require('../lib/config'), d.mod));
     },
+    'modifications propagate to loadConfig':function(){
+      assert.strictEqual(true, utils.deepDiff(require('../lib/config').loadConfig(), d.mod));
+    },
     'can undo':function(){
       assert.strictEqual(true, utils.deepDiff(require('../lib/config').unmodify(), d.simple));
     }

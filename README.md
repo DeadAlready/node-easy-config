@@ -180,6 +180,36 @@ Will result in:
       ...
     }
 
+## File manipulation
+
+easy-config also provides some file manipulation functions for easy configuration file modifying
+if a need should arise for a persistent cross process on the fly dynamic configuration
+
+### writeConfigFile(name, object)
+
+writeConfigFile is a function for writing a new configuration file or overwriting an existing file.
+The function takes two parameters:
++ name -> the name of the new file 'config.new.json' and 'new' are equivalent
++ object -> this object will be JSON.stringified before writing to file
+
+The function will return the new configuration object or false if writing fails
+
+### addToConfigFile(name, object)
+
+addToConfigFile is a function for extending the json object in a file with new data.
+The function takes two parameters:
++ name -> the name of the new file 'config.new.json' and 'new' are equivalent
++ object -> the previous contents will be extended with this object and the result written to file
+
+The function will return the new configuration object or false if writing fails
+
+### deleteConfigFile(name)
+
+deleteConfigFile is a function for deleting a configuration file
++ name -> the name of the new file 'config.new.json' and 'new' are equivalent
+
+Function returns new configuration object or false if no such file is mapped.
+
 ## License
 
 The MIT License (MIT)

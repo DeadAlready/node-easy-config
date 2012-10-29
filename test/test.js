@@ -76,4 +76,88 @@ vows.describe('Easy-config').addBatch({
       assert.strictEqual(true, utils.deepDiff(require('../lib/config').unmodify(), d.simple));
     }
   }
+}).addBatch({
+  'writeConfigFile':{
+    topic:function(){
+      this.callback(null, require('../lib/config').writeConfigFile('config.here.json', {'test':true}));
+    },
+    'returns correct':function(config){
+      assert.strictEqual(true, utils.deepDiff(config, d.writeF1));
+    },
+    'is buffered':function(){
+      assert.strictEqual(true, utils.deepDiff(require('../lib/config'), d.writeF1));
+    },
+    'modifications propagate to loadConfig':function(){
+      assert.strictEqual(true, utils.deepDiff(require('../lib/config').loadConfig(), d.writeF1));
+    },
+    'overwrite returns correct':function(){
+      assert.strictEqual(true, utils.deepDiff(require('../lib/config').writeConfigFile('config.here.json', {'test':false}), d.writeF2));
+    },
+    'is also buffered':function(){
+      assert.strictEqual(true, utils.deepDiff(require('../lib/config'), d.writeF2));
+    }
+  }
+}).addBatch({
+  'addToConfigFile':{
+    topic:function(){
+      this.callback(null, require('../lib/config').addToConfigFile('config.here.json', {'test2':true}));
+    },
+    'returns correct':function(config){
+      assert.strictEqual(true, utils.deepDiff(config, d.writeF3));
+    },
+    'is buffered':function(){
+      assert.strictEqual(true, utils.deepDiff(require('../lib/config'), d.writeF3));
+    },
+    'modifications propagate to loadConfig':function(){
+      assert.strictEqual(true, utils.deepDiff(require('../lib/config').loadConfig(), d.writeF3));
+    }
+  }
+}).addBatch({
+  'deleteConfigFile':{
+    topic:function(){
+      this.callback(null, require('../lib/config').deleteConfigFile('config.here.json'));
+    },
+    'returns correct':function(config){
+      assert.strictEqual(true, utils.deepDiff(config, d.simple));
+    },
+    'is buffered':function(){
+      assert.strictEqual(true, utils.deepDiff(require('../lib/config'), d.simple));
+    },
+    'modifications propagate to loadConfig':function(){
+      assert.strictEqual(true, utils.deepDiff(require('../lib/config').loadConfig(), d.simple));
+    }
+  }
+}).addBatch({
+  'writeConfigFile with just name':{
+    topic:function(){
+      this.callback(null, require('../lib/config').writeConfigFile('here', {'test':true}));
+    },
+    'returns correct':function(config){
+      assert.strictEqual(true, utils.deepDiff(config, d.writeF1));
+    }
+  }
+}).addBatch({
+  'addToConfigFile with just name':{
+    topic:function(){
+      this.callback(null, require('../lib/config').addToConfigFile('here', {'test2':true}));
+    },
+    'returns correct':function(config){
+      assert.strictEqual(true, utils.deepDiff(config, d.writeF4));
+    }
+  }
+}).addBatch({
+  'deleteConfigFile with just name':{
+    topic:function(){
+      this.callback(null, require('../lib/config').deleteConfigFile('here'));
+    },
+    'returns correct':function(config){
+      assert.strictEqual(true, utils.deepDiff(config, d.simple));
+    },
+    'is buffered':function(){
+      assert.strictEqual(true, utils.deepDiff(require('../lib/config'), d.simple));
+    },
+    'modifications propagate to loadConfig':function(){
+      assert.strictEqual(true, utils.deepDiff(require('../lib/config').loadConfig(), d.simple));
+    }
+  }
 }).run({reporter:spec});

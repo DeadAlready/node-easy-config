@@ -4,12 +4,16 @@
 'use strict';
 
 function clone(o){
-  var c = {};
-  var h = Object.keys(o);
-  for(var i = 0, co = h.length; i < co; i++){
-    c[h[i]] = o[h[i]];
+  if(typeof o === 'object' && o.length === undefined){
+    var c = {};
+    var h = Object.keys(o);
+    for(var i = 0, co = h.length; i < co; i++){
+      c[h[i]] = clone(o[h[i]]);
+    }
+    return c;
+  } else {
+    return o;
   }
-  return c;
 }
 
 var config = {
@@ -60,6 +64,22 @@ module.exports.simple.ns = {
 
 module.exports.mod = clone(module.exports.simple);
 module.exports.mod.test = true;
+
+module.exports.writeF1 = clone(module.exports.simple);
+module.exports.writeF1.ns.here = {
+  test:true
+}
+
+module.exports.writeF2 = clone(module.exports.simple);
+module.exports.writeF2.ns.here = {
+  test:false
+}
+
+module.exports.writeF3 = clone(module.exports.writeF2);
+module.exports.writeF3.ns.here.test2 = true;
+
+module.exports.writeF4 = clone(module.exports.writeF1);
+module.exports.writeF4.ns.here.test2 = true;
 
 module.exports.simpleE = clone(module.exports.simple);
 module.exports.simpleE.correct = false;

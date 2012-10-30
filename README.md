@@ -194,9 +194,9 @@ The function takes two parameters:
 
 The function will return the new configuration object or false if writing fails
 
-### addToConfigFile(name, object)
+### changeConfigFile(name, object)
 
-addToConfigFile is a function for extending the json object in a file with new data.
+changeConfigFile is a function for extending the json object in a file with new data.
 The function takes two parameters:
 + name -> the name of the new file 'config.new.json' and 'new' are equivalent
 + object -> the previous contents will be extended with this object and the result written to file

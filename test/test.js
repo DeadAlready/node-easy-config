@@ -98,9 +98,9 @@ vows.describe('Easy-config').addBatch({
     }
   }
 }).addBatch({
-  'addToConfigFile':{
+  'changeConfigFile':{
     topic:function(){
-      this.callback(null, require('../lib/config').addToConfigFile('config.here.json', {'test2':true}));
+      this.callback(null, require('../lib/config').changeConfigFile('config.here.json', {'test2':true}));
     },
     'returns correct':function(config){
       assert.strictEqual(true, utils.deepDiff(config, d.writeF3));
@@ -137,9 +137,9 @@ vows.describe('Easy-config').addBatch({
     }
   }
 }).addBatch({
-  'addToConfigFile with just name':{
+  'changeConfigFile with just name':{
     topic:function(){
-      this.callback(null, require('../lib/config').addToConfigFile('here', {'test2':true}));
+      this.callback(null, require('../lib/config').changeConfigFile('here', {'test2':true}));
     },
     'returns correct':function(config){
       assert.strictEqual(true, utils.deepDiff(config, d.writeF4));

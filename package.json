@@ -15,7 +15,7 @@
   },
   "main": "lib/config.js",
   "dependencies": {
-    "foldermap":"0.1.*"
+    "foldermap":"0.1.x"
   },
   "devDependencies":{
     "vows":"0.6.x"

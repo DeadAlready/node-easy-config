@@ -210,6 +210,12 @@ deleteConfigFile is a function for deleting a configuration file
 
 Function returns new configuration object or false if no such file is mapped.
 
+### getDefinedOptions()
+
+getDefinedOptions is a function for getting the easy-configs inner options object
+
+Function returns the current options object of the config.
+
 ## License
 
 The MIT License (MIT)

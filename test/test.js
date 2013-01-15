@@ -160,4 +160,22 @@ vows.describe('Easy-config').addBatch({
       assert.strictEqual(true, utils.deepDiff(require('../lib/config').loadConfig(), d.simple));
     }
   }
+}).addBatch({
+  'getDefinedOptions':{
+    topic:function(){
+      this.callback(null, require('../lib/config').getDefinedOptions());
+    },
+    'returns correct':function(options){
+      assert.strictEqual(true, utils.deepDiff(options, d.options));
+    }
+  }
+}).addBatch({
+  'getDefinedOptions custom':{
+    topic:function(){
+      this.callback(null, require('../lib/config').loadConfig({ns:false,env:'pro'}).getDefinedOptions());
+    },
+    'returns correct':function(options){
+      assert.strictEqual(true, utils.deepDiff(options, d.options2));
+    }
+  }
 }).run({reporter:spec});

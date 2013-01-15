@@ -91,3 +91,23 @@ module.exports.noEnv.ns = {
 
 module.exports.noNS = clone(module.exports.configDev);
 module.exports.noNS.runner = clone(runner);
+
+module.exports.options = { 
+  folder: 'C:\\wamp\\www\\node-easy-config\\test\\config\\',
+  cmd: true,
+  envs:['dev','pro'],
+  env: 'dev',
+  type: 'json',
+  ns: true,
+  pre: {}
+};
+
+module.exports.options2 = { 
+  folder: 'C:\\wamp\\www\\node-easy-config\\test\\config\\',
+  cmd: true,
+  envs:['dev','pro'],
+  env: 'pro',
+  type: 'json',
+  ns: false,
+  pre: {}
+};

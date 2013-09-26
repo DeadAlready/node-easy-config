@@ -178,4 +178,22 @@ vows.describe('Easy-config').addBatch({
       assert.strictEqual(true, utils.deepDiff(options, d.options2));
     }
   }
+}).addBatch({
+    'isProduction true':{
+        topic:function(){
+            this.callback(null, require('../lib/config').loadConfig({ns:false, env:'pro'}).isProduction());
+        },
+        'returns correct':function(production){
+            assert.strictEqual(true, production);
+        }
+    }
+}).addBatch({
+    'isProduction false':{
+        topic:function(){
+            this.callback(null, require('../lib/config').loadConfig({ns:false, env:'dev'}).isProduction());
+        },
+        'returns correct':function(production){
+            assert.strictEqual(false, production);
+        }
+    }
 }).run({reporter:spec});

@@ -216,6 +216,12 @@ getDefinedOptions is a function for getting the easy-configs inner options objec
 
 Function returns the current options object of the config.
 
+### isProduction()
+
+isProduction is a function for getting a boolean indication if production config is used
+
+Function returns boolean true or false
+
 ## License
 
 The MIT License (MIT)

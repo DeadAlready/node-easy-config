@@ -23,7 +23,7 @@ var config = {
     name: 'It\'s useful to log',
     level: 'info'
   }
-}
+};
 
 module.exports.configDev = {
   log: {
@@ -42,14 +42,14 @@ var dev = {
     level: 'debug'
   },
   correct: true
-}
+};
 
 var devO = {
   log: {
     level: 'debug'
   },
   correct: 'usually'
-}
+};
 
 module.exports.other = {
   log: {
@@ -62,7 +62,7 @@ module.exports.other = {
 module.exports.simple = clone(module.exports.configDev);
 module.exports.simple.ns = {
   runner: clone(runner)
-}
+};
 
 module.exports.mod = clone(module.exports.simple);
 module.exports.mod.test = true;
@@ -70,12 +70,12 @@ module.exports.mod.test = true;
 module.exports.writeF1 = clone(module.exports.simple);
 module.exports.writeF1.ns.here = {
   test: true
-}
+};
 
 module.exports.writeF2 = clone(module.exports.simple);
 module.exports.writeF2.ns.here = {
   test: false
-}
+};
 
 module.exports.writeF3 = clone(module.exports.writeF2);
 module.exports.writeF3.ns.here.test2 = true;
@@ -89,7 +89,7 @@ module.exports.simpleE.correct = false;
 module.exports.noEnv = clone(config);
 module.exports.noEnv.ns = {
   runner: clone(runner)
-}
+};
 
 module.exports.noNS = clone(module.exports.configDev);
 module.exports.noNS.runner = clone(runner);

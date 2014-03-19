@@ -1,0 +1,7 @@
+{
+  "log": {
+    "level":"debug"
+  },
+  // Another comment
+  "correct":"usually"
+}

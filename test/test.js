@@ -9,6 +9,14 @@ var spec = require('vows/lib/vows/reporters/spec');
 var d = require('./data');
 var utils = require('./utils');
 
+var cjson = null;
+try {
+    // See if we have cjson
+    cjson = require('cjson');
+} catch(e) {
+    cjson = null;
+}
+
 try {
     process.chdir(__dirname);
 }
@@ -47,6 +55,22 @@ vows.describe('Easy-config').addBatch({
         },
         'is correct':function(config){
             assert.strictEqual(true, utils.deepDiff(config, d.other));
+        }
+    }
+}).addBatch({
+    'With comments folder':{
+        topic: function(){
+            if(cjson) {
+                this.callback(null, require('../lib/config').loadConfig({folder:'comment'}));
+            } else {
+                // No cjson so skip
+                this.callback(null, null);
+            }
+        },
+        'is correct':function(config){
+            if(cjson) {
+                assert.strictEqual(true, utils.deepDiff(config, d.other));
+            }
         }
     }
 }).addBatch({

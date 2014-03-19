@@ -43,7 +43,7 @@ The following options are available:
 + pre: *Object to start extending, defaults to {}
 + ns: *Boolean whether to append files under ns property
 
-There are two ways of specifying the options:
+There are three ways of specifying the options:
 
 ### loadConfig
 
@@ -60,6 +60,16 @@ Take note that the format differs between loading configuration options and conf
 Options specified on command line will take precedent over options specified in code.
 
     $ node test.js -env=pro
+
+### env.json
+
+The environment variables can also be defined in a 'env.json' file that is loaded from the current working directory
+of the process. These are used as the base and extend the defaults before all other methods.
+
+## CJSON support
+
+Optionally if you have the [cjson](https://github.com/kof/node-cjson) module installed, then you can also use comments
+in your json files as it will be used to load them.
 
 ## Examples
 

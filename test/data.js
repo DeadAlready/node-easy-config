@@ -90,15 +90,15 @@ module.exports.noEnv.ns = {
 module.exports.noNS = clone(module.exports.configDev);
 module.exports.noNS.runner = clone(runner);
 
-module.exports.simpleWEnv = clone(module.exports.configDev);
-module.exports.simpleWEnv.runner = clone(runner);
-module.exports.simpleWEnv.test = {
+module.exports.noNSWEnv = clone(module.exports.configDev);
+module.exports.noNSWEnv.runner = clone(runner);
+module.exports.noNSWEnv.test = {
     'var': true
 };
 
-module.exports.simpleWCIEnv = clone(module.exports.configDev);
-module.exports.simpleWCIEnv.runner = clone(runner);
-module.exports.simpleWCIEnv.clientId = 'super';
+module.exports.noNSWCIEnv = clone(module.exports.configDev);
+module.exports.noNSWCIEnv.runner = clone(runner);
+module.exports.noNSWCIEnv.clientId = 'super';
 
 module.exports.options = {
   folder: __dirname + path.sep + 'config' + path.sep,

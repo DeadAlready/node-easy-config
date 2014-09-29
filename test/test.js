@@ -243,7 +243,7 @@ vows.describe('Easy-config').addBatch({
             this.callback(null, require('../lib/config').loadConfig({ns:false, env:'dev'}));
         },
         'returns correct':function(config){
-            assert.strictEqual(true, utils.deepDiff(config, d.simpleWEnv));
+            assert.strictEqual(true, utils.deepDiff(config, d.noNSWEnv));
             delete process.env.NODE_TEST_VAR;
         }
     }
@@ -254,7 +254,18 @@ vows.describe('Easy-config').addBatch({
             this.callback(null, require('../lib/config').loadConfig({ns:false, env:'dev'}));
         },
         'returns correct':function(config){
-            assert.strictEqual(true, utils.deepDiff(config, d.simpleWCIEnv));
+            assert.strictEqual(true, utils.deepDiff(config, d.noNSWCIEnv));
+            delete process.env.NODE_CLIENTID;
+        }
+    }
+}).addBatch({
+    'ignore environment variables':{
+        topic:function(){
+            process.env.NODE_CLIENTID = 'super';
+            this.callback(null, require('../lib/config').loadConfig({ns:false, env:'dev', envVars: false}));
+        },
+        'returns correct':function(config){
+            assert.strictEqual(true, utils.deepDiff(config, d.noNS));
         }
     }
 }).run({reporter:spec});

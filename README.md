@@ -29,7 +29,30 @@ Input is expected in the --{name}={value} format.
 
 You can also set nested properties by using dots to specify the nesting like so:
 
-    $ node test.js --log.level.is==true  
+    $ node test.js --log.level.is=true  
+
+### Environment variables
+
+Easy config will also load environment variables into the configuration.
+
+Variables are expected in the format NODE_{name}=value
+
+Nested variables are possible with underscore separators.
+
+The following example is the equivalent of previous command line example
+
+    $ export NODE_LOG_LEVEL_IS=true  
+    $ node test.js
+
+NB! Environment variables are case insensitive - that means if I set an environment variable like
+
+    $ export NODE_VAR=10
+
+Then `config.var === 10` instead of `config.VAR === 10`
+
+Also if I have a configuration variable like `config.clientId === 'joonas'`
+
+Then setting environment variable `$ export NODE_CLIENTID='karl'` will overwrite the variable and `config.clientId === 'karl'`
 
 ## Options
 
@@ -39,6 +62,7 @@ The following options are available:
 + cmd: *Whether to load configurations from the command line will default to true
 + envs: *Array of environment names. These files will not be loaded by default. Will default to ['dev','pro']
 + env: *Environment for which to load configuration will default to 'dev' (this will try to load config.dev.json)
++ envVars: *Whether to load environment variables, defaults to true
 + type: *String -> file extension to load, defaults to JSON. Files are included with require, so js and json files are supported by default.
 + pre: *Object to start extending, defaults to {}
 + ns: *Boolean whether to append files under ns property
@@ -156,6 +180,9 @@ Will result in:
       oldProp:'Old',
       newestProp:'Newest'
     }
+    
+When using extend with two objects you can also pass boolean true as the third argument, this will change the default behaviour
+of cloning the objects to changing the original object at first parameter.
 
 ### Modify/unmodify
 

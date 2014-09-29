@@ -22,7 +22,8 @@ var config = {
   log: {
     name: 'It\'s useful to log',
     level: 'info'
-  }
+  },
+  clientId: 'joonas'
 };
 
 module.exports.configDev = {
@@ -30,7 +31,8 @@ module.exports.configDev = {
     name: 'It\'s useful to log',
     level: 'debug'
   },
-  correct: true
+  correct: true,
+  clientId: 'joonas'
 };
 
 var runner = {
@@ -41,14 +43,8 @@ var dev = {
   log: {
     level: 'debug'
   },
-  correct: true
-};
-
-var devO = {
-  log: {
-    level: 'debug'
-  },
-  correct: 'usually'
+  correct: true,
+  clientId: 'joonas'
 };
 
 module.exports.other = {
@@ -94,9 +90,20 @@ module.exports.noEnv.ns = {
 module.exports.noNS = clone(module.exports.configDev);
 module.exports.noNS.runner = clone(runner);
 
+module.exports.simpleWEnv = clone(module.exports.configDev);
+module.exports.simpleWEnv.runner = clone(runner);
+module.exports.simpleWEnv.test = {
+    'var': true
+};
+
+module.exports.simpleWCIEnv = clone(module.exports.configDev);
+module.exports.simpleWCIEnv.runner = clone(runner);
+module.exports.simpleWCIEnv.clientId = 'super';
+
 module.exports.options = {
   folder: __dirname + path.sep + 'config' + path.sep,
   cmd: true,
+  envVars: true,
   envs: ['dev', 'pro'],
   env: 'dev',
   type: 'json',
@@ -107,6 +114,7 @@ module.exports.options = {
 module.exports.options2 = {
   folder: __dirname + path.sep + 'config' + path.sep,
   cmd: true,
+  envVars: true,
   envs: ['dev', 'pro'],
   env: 'pro',
   type: 'json',

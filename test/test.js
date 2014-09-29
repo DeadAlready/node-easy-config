@@ -26,6 +26,13 @@ catch (err) {
     process.exit();
 }
 
+// Clear variables for tests
+Object.keys(process.env).forEach(function (key) {
+    if(key.indexOf('NODE_') === 0) {
+        delete process.env[key];
+    }
+});
+
 vows.describe('Easy-config').addBatch({
     'Simple include':{
         topic:function(){
@@ -227,6 +234,27 @@ vows.describe('Easy-config').addBatch({
         },
         'returns correct':function(production){
             assert.strictEqual(false, production);
+        }
+    }
+}).addBatch({
+    'load environment variables':{
+        topic:function(){
+            process.env.NODE_TEST_VAR = 'true';
+            this.callback(null, require('../lib/config').loadConfig({ns:false, env:'dev'}));
+        },
+        'returns correct':function(config){
+            assert.strictEqual(true, utils.deepDiff(config, d.simpleWEnv));
+            delete process.env.NODE_TEST_VAR;
+        }
+    }
+}).addBatch({
+    'load case insensitive environment variables':{
+        topic:function(){
+            process.env.NODE_CLIENTID = 'super';
+            this.callback(null, require('../lib/config').loadConfig({ns:false, env:'dev'}));
+        },
+        'returns correct':function(config){
+            assert.strictEqual(true, utils.deepDiff(config, d.simpleWCIEnv));
         }
     }
 }).run({reporter:spec});

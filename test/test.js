@@ -259,6 +259,17 @@ vows.describe('Easy-config').addBatch({
         }
     }
 }).addBatch({
+    'load JSON environment variables':{
+        topic:function(){
+            process.env.NODE_LANG = JSON.stringify(['en', 'es', 'de']);
+            this.callback(null, require('../lib/config').loadConfig({ns:false, env:'dev'}));
+        },
+        'returns correct':function(config){
+            assert.strictEqual(true, utils.deepDiff(config, d.noNSWCIEnvJSON));
+            delete process.env.NODE_CLIENTID;
+        }
+    }
+}).addBatch({
     'ignore environment variables':{
         topic:function(){
             process.env.NODE_CLIENTID = 'super';

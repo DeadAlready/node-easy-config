@@ -100,6 +100,10 @@ module.exports.noNSWCIEnv = clone(module.exports.configDev);
 module.exports.noNSWCIEnv.runner = clone(runner);
 module.exports.noNSWCIEnv.clientId = 'super';
 
+module.exports.noNSWCIEnvJSON = clone(module.exports.configDev);
+module.exports.noNSWCIEnvJSON.runner = clone(runner);
+module.exports.noNSWCIEnvJSON.lang = ['en', 'es', 'de'];
+
 module.exports.options = {
   folder: __dirname + path.sep + 'config' + path.sep,
   cmd: true,

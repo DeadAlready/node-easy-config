@@ -26,12 +26,17 @@ catch (err) {
     process.exit();
 }
 
+var tmpArgs = [];
+
 // Clear variables for tests
-Object.keys(process.env).forEach(function (key) {
-    if(key.indexOf('NODE_') === 0) {
-        delete process.env[key];
-    }
-});
+function clearEnv() {
+    Object.keys(process.env).forEach(function (key) {
+        if(key.indexOf('NODE_') === 0) {
+            delete process.env[key];
+        }
+    });
+}
+clearEnv();
 
 vows.describe('Easy-config').addBatch({
     'Simple include':{
@@ -239,44 +244,88 @@ vows.describe('Easy-config').addBatch({
 }).addBatch({
     'load environment variables':{
         topic:function(){
+            clearEnv();
             process.env.NODE_TEST_VAR = 'true';
             this.callback(null, require('../lib/config').loadConfig({ns:false, env:'dev'}));
         },
         'returns correct':function(config){
             assert.strictEqual(true, utils.deepDiff(config, d.noNSWEnv));
-            delete process.env.NODE_TEST_VAR;
+            clearEnv();
         }
     }
 }).addBatch({
     'load case insensitive environment variables':{
         topic:function(){
+            clearEnv();
             process.env.NODE_CLIENTID = 'super';
             this.callback(null, require('../lib/config').loadConfig({ns:false, env:'dev'}));
         },
         'returns correct':function(config){
             assert.strictEqual(true, utils.deepDiff(config, d.noNSWCIEnv));
-            delete process.env.NODE_CLIENTID;
+            clearEnv();
         }
     }
 }).addBatch({
     'load JSON environment variables':{
         topic:function(){
+            clearEnv();
             process.env.NODE_LANG = JSON.stringify(['en', 'es', 'de']);
             this.callback(null, require('../lib/config').loadConfig({ns:false, env:'dev'}));
         },
         'returns correct':function(config){
             assert.strictEqual(true, utils.deepDiff(config, d.noNSWCIEnvJSON));
-            delete process.env.NODE_CLIENTID;
+            clearEnv();
         }
     }
 }).addBatch({
     'ignore environment variables':{
         topic:function(){
+            clearEnv();
             process.env.NODE_CLIENTID = 'super';
             this.callback(null, require('../lib/config').loadConfig({ns:false, env:'dev', envVars: false}));
         },
         'returns correct':function(config){
             assert.strictEqual(true, utils.deepDiff(config, d.noNS));
+            clearEnv();
+        }
+    }
+}).addBatch({
+    'load simple cmdline variable':{
+        topic:function(){
+            tmpArgs = process.argv.slice(0);
+            process.argv = process.argv.slice(0);
+            process.argv.push('--test=here');
+            this.callback(null, require('../lib/config').loadConfig({}));
+        },
+        'returns correct':function(config){
+            assert.strictEqual(true, utils.deepDiff(config, d.simpleCmd));
+            process.argv = tmpArgs.slice(0);
+        }
+    }
+}).addBatch({
+    'load simple nested cmdline variable':{
+        topic:function(){
+            tmpArgs = process.argv.slice(0);
+            process.argv = process.argv.slice(0);
+            process.argv.push('--test.is=here');
+            this.callback(null, require('../lib/config').loadConfig({}));
+        },
+        'returns correct':function(config){
+            assert.strictEqual(true, utils.deepDiff(config, d.simpleCmdNested));
+            process.argv = tmpArgs.slice(0);
+        }
+    }
+}).addBatch({
+    'load simple cmdline value ommited (boolean) variable':{
+        topic:function(){
+            tmpArgs = process.argv.slice(0);
+            process.argv = process.argv.slice(0);
+            process.argv.push('--test');
+            this.callback(null, require('../lib/config').loadConfig({}));
+        },
+        'returns correct':function(config){
+            assert.strictEqual(true, utils.deepDiff(config, d.simpleCmdBoolean));
+            process.argv = tmpArgs.slice(0);
         }
     }
 }).run({reporter:spec});

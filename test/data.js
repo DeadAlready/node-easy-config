@@ -104,6 +104,17 @@ module.exports.noNSWCIEnvJSON = clone(module.exports.configDev);
 module.exports.noNSWCIEnvJSON.runner = clone(runner);
 module.exports.noNSWCIEnvJSON.lang = ['en', 'es', 'de'];
 
+module.exports.simpleCmd = clone(module.exports.simple);
+module.exports.simpleCmd.test = 'here';
+
+module.exports.simpleCmdNested = clone(module.exports.simple);
+module.exports.simpleCmdNested.test = {
+  is: 'here'
+};
+
+module.exports.simpleCmdBoolean = clone(module.exports.simple);
+module.exports.simpleCmdBoolean.test = true;
+
 module.exports.options = {
   folder: __dirname + path.sep + 'config' + path.sep,
   cmd: true,

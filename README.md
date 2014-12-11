@@ -29,7 +29,11 @@ Input is expected in the --{name}={value} format.
 
 You can also set nested properties by using dots to specify the nesting like so:
 
-    $ node test.js --log.level.is=true  
+    $ node test.js --log.level.is=true
+
+You can also omit the value if it is boolean, so the last line is equal to:
+
+    $ node test.js --log.level.is
 
 ### Environment variables
 

@@ -70,6 +70,7 @@ The following options are available:
 + type: *String -> file extension to load, defaults to JSON. Files are included with require, so js and json files are supported by default.
 + pre: *Object to start extending, defaults to {}
 + ns: *Boolean whether to append files under ns property
++ envPrefix: *String - string to use in matching environment variables related to config, defaults to 'NODE_'
 
 There are three ways of specifying the options:
 

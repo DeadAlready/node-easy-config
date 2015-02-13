@@ -123,7 +123,8 @@ module.exports.options = {
   env: 'dev',
   type: 'json',
   ns: true,
-  pre: {}
+  pre: {},
+  envPrefix: 'NODE_'
 };
 
 module.exports.options2 = {
@@ -134,5 +135,6 @@ module.exports.options2 = {
   env: 'pro',
   type: 'json',
   ns: false,
-  pre: {}
+  pre: {},
+  envPrefix: 'NODE_'
 };

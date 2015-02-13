@@ -290,6 +290,18 @@ vows.describe('Easy-config').addBatch({
         }
     }
 }).addBatch({
+    'load environment variables with different prefix':{
+        topic:function(){
+            clearEnv();
+            process.env.PREFIX_CLIENTID = 'super';
+            this.callback(null, require('../lib/config').loadConfig({ns:false, env:'dev', envPrefix: 'PREFIX_'}));
+        },
+        'returns correct':function(config){
+            assert.strictEqual(true, utils.deepDiff(config, d.noNSWCIEnv));
+            clearEnv();
+        }
+    }
+}).addBatch({
     'load simple cmdline variable':{
         topic:function(){
             tmpArgs = process.argv.slice(0);

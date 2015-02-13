@@ -8,7 +8,7 @@
     "command line",
     "loader"
   ],
-  "version": "0.4.3",
+  "version": "0.4.4",
   "repository": {
     "type": "git",
     "url": "git@github.com:DeadAlready/node-easy-config"
@@ -19,6 +19,9 @@
   },
   "devDependencies": {
     "vows": "0.6.x"
+  },
+  "scripts": {
+    "test": "node ./test/test"
   },
   "optionalDependencies": {},
   "engines": {

@@ -340,4 +340,19 @@ vows.describe('Easy-config').addBatch({
             process.argv = tmpArgs.slice(0);
         }
     }
+}).addBatch({
+    'favor cmdline to environment variables':{
+        topic:function(){
+            tmpArgs = process.argv.slice(0);
+            process.argv = process.argv.slice(0);
+            process.argv.push('--test.is=here');
+            clearEnv();
+            process.env.NODE_TEST_IS = 'super';
+            this.callback(null, require('../lib/config').loadConfig({}));
+        },
+        'returns correct':function(config){
+            assert.strictEqual(true, utils.deepDiff(config, d.simpleCmdNested));
+            process.argv = tmpArgs.slice(0);
+        }
+    }
 }).run({reporter:spec});

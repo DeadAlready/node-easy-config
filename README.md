@@ -18,10 +18,11 @@ It will try to read JSON files from config subfolder.
 Starting with an empty object extend the configuration object by adding or overwriting the values obtained in the following order
 
 1. config.json
-2. config.dev.json (this is because default environment is development)
-3. command line input
-4. all other files are added under ns key in the following format
+2. all config files except environment files are added under ns key in the following format
   -> config.keys.json will be under ns.keys
+3. config.dev.json (this is because default environment is development)
+4. environment variables
+5. command line input
 
 ### Command line
 

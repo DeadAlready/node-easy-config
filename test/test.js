@@ -355,4 +355,40 @@ vows.describe('Easy-config').addBatch({
             process.argv = tmpArgs.slice(0);
         }
     }
+}).addBatch({
+    'isEnvironment to return true on correct':{
+        topic:function(){
+            this.callback(null, require('../lib/config').loadConfig({ns:false, env:'pro'}).isEnvironment('pro'));
+        },
+        'returns correct':function(isEnv){
+            assert.strictEqual(true, isEnv);
+        }
+    }
+}).addBatch({
+    'isEnvironment to return false on wrong':{
+        topic:function(){
+            this.callback(null, require('../lib/config').loadConfig({ns:false, env:'pro'}).isEnvironment('dev'));
+        },
+        'returns correct':function(isEnv){
+            assert.strictEqual(false, isEnv);
+        }
+    }
+}).addBatch({
+    'isEnvironment to return true on array input with right element':{
+        topic:function(){
+            this.callback(null, require('../lib/config').loadConfig({ns:false, env:'pro'}).isEnvironment(['pro', 'production']));
+        },
+        'returns correct':function(isEnv){
+            assert.strictEqual(true, isEnv);
+        }
+    }
+}).addBatch({
+    'isEnvironment to return false on array input with no right element':{
+        topic:function(){
+            this.callback(null, require('../lib/config').loadConfig({ns:false, env:'pro'}).isEnvironment(['dev', 'development']));
+        },
+        'returns correct':function(isEnv){
+            assert.strictEqual(false, isEnv);
+        }
+    }
 }).run({reporter:spec});

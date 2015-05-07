@@ -265,6 +265,14 @@ isProduction is a function for getting a boolean indication if production config
 
 Function returns boolean true or false
 
+
+### isEnvironment(name | array)
+
+isEnvironment is a function for getting a boolean indication if the environment in use is the one specified or in the
+array specified
+
+Function returns boolean true or false
+
 ## License
 
 The MIT License (MIT)

@@ -27,6 +27,7 @@ catch (err) {
 }
 
 var tmpArgs = [];
+var globalObj;
 
 // Clear variables for tests
 function clearEnv() {
@@ -101,6 +102,20 @@ vows.describe('Easy-config').addBatch({
         },
         'is correct':function(config){
             assert.strictEqual(true, utils.deepDiff(config, d.other));
+        }
+    }
+}).addBatch({
+    'extend.clone':{
+        topic:function(){
+            this.callback(null, require('../lib/config').extend({}, d.cloneObj));
+        },
+        'returns correct':function(obj){
+            globalObj = obj;
+            assert.strictEqual(true, utils.deepDiff(obj, d.cloneObj));
+        },
+        'is actually clone':function(){
+            globalObj.toot[1].juhan = 3;
+            assert.notStrictEqual(globalObj.toot[1].juhan, d.cloneObjRef.toot[1].juhan);
         }
     }
 }).addBatch({

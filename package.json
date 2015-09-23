@@ -8,23 +8,23 @@
     "command line",
     "loader"
   ],
-  "version": "0.4.8",
+  "version": "0.4.9",
   "repository": {
     "type": "git",
     "url": "git@github.com:DeadAlready/node-easy-config"
   },
   "main": "lib/config.js",
-  "optionalDependencies": {
-    "cjson": "~0.3.0"
-  },
+  "optionalDependencies": {},
   "devDependencies": {
-    "vows": "0.6.x"
+    "vows": "0.8.x"
   },
   "scripts": {
     "test": "node ./test/test"
   },
-  "optionalDependencies": {},
   "engines": {
     "node": ">=0.8.0"
+  },
+  "dependencies": {
+    "clone": "^1.0.2"
   }
 }

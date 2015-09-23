@@ -4,19 +4,7 @@
 'use strict';
 
 var path = require('path');
-
-function clone(o) {
-  if (typeof o === 'object' && o.length === undefined) {
-    var c = {};
-    var h = Object.keys(o);
-    for (var i = 0, co = h.length; i < co; i++) {
-      c[h[i]] = clone(o[h[i]]);
-    }
-    return c;
-  } else {
-    return o;
-  }
-}
+var clone = require('clone');
 
 var config = {
   log: {
@@ -137,4 +125,14 @@ module.exports.options2 = {
   ns: false,
   pre: {},
   envPrefix: 'NODE_'
+};
+
+module.exports.cloneObj = {
+  test:true,
+  toot: [1, {juhan: 2}, 3]
+};
+
+module.exports.cloneObjRef = {
+  test:true,
+  toot: [1, {juhan: 2}, 3]
 };

@@ -281,7 +281,7 @@ vows.describe('Easy-config').addBatch({
         }
     }
 }).addBatch({
-    'load JSON environment variables':{
+    'load JSON array environment variables':{
         topic:function(){
             clearEnv();
             process.env.NODE_LANG = JSON.stringify(['en', 'es', 'de']);
@@ -289,6 +289,42 @@ vows.describe('Easy-config').addBatch({
         },
         'returns correct':function(config){
             assert.strictEqual(true, utils.deepDiff(config, d.noNSWCIEnvJSON));
+            clearEnv();
+        }
+    }
+}).addBatch({
+    'load single quote JSON array environment variables':{
+        topic:function(){
+            clearEnv();
+            process.env.NODE_LANG = JSON.stringify(['en', 'es', 'de']).replace(/"/g, "'");
+            this.callback(null, require('../lib/config').loadConfig({ns:false, env:'dev'}));
+        },
+        'returns correct':function(config){
+            assert.strictEqual(true, utils.deepDiff(config, d.noNSWCIEnvJSON));
+            clearEnv();
+        }
+    }
+}).addBatch({
+    'load JSON object environment variables':{
+        topic:function(){
+            clearEnv();
+            process.env.NODE_LANG = JSON.stringify({en: 1, de: 1});
+            this.callback(null, require('../lib/config').loadConfig({ns:false, env:'dev'}));
+        },
+        'returns correct':function(config){
+            assert.strictEqual(true, utils.deepDiff(config, d.noNSWCIEnvJSONobj));
+            clearEnv();
+        }
+    }
+}).addBatch({
+    'load single quote JSON object environment variables':{
+        topic:function(){
+            clearEnv();
+            process.env.NODE_LANG = JSON.stringify({en: 1, de: 1}).replace(/"/g, "'");
+            this.callback(null, require('../lib/config').loadConfig({ns:false, env:'dev'}));
+        },
+        'returns correct':function(config){
+            assert.strictEqual(true, utils.deepDiff(config, d.noNSWCIEnvJSONobj));
             clearEnv();
         }
     }

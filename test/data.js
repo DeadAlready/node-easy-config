@@ -92,6 +92,11 @@ module.exports.noNSWCIEnvJSON = clone(module.exports.configDev);
 module.exports.noNSWCIEnvJSON.runner = clone(runner);
 module.exports.noNSWCIEnvJSON.lang = ['en', 'es', 'de'];
 
+
+module.exports.noNSWCIEnvJSONobj = clone(module.exports.configDev);
+module.exports.noNSWCIEnvJSONobj.runner = clone(runner);
+module.exports.noNSWCIEnvJSONobj.lang = {en: 1, de: 1};
+
 module.exports.simpleCmd = clone(module.exports.simple);
 module.exports.simpleCmd.test = 'here';
 

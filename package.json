@@ -19,12 +19,14 @@
     "vows": "0.8.x"
   },
   "scripts": {
-    "test": "node ./test/test"
+    "test": "node ./test/test",
+    "preversion": "npm test"
   },
   "engines": {
     "node": ">=0.8.0"
   },
   "dependencies": {
-    "clone": "^1.0.2"
-  }
+    "clone": "^2.1.2"
+  },
+  "types": "typings/easy-config.d.ts"
 }

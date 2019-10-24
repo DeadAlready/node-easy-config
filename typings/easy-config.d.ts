@@ -15,5 +15,7 @@ declare module "easy-config" {
         [key: string]: any;
     }
 
-    export = Config;
+    const _default: Config;
+
+    export = _default;
 }
